@@ -3,7 +3,6 @@ import json
 from flask import Flask, render_template
 from flask_mqtt import Mqtt
 from flask_socketio import SocketIO
-#from flask_bootstrap import Bootstrap
 
 eventlet.monkey_patch()
 
