@@ -4,7 +4,6 @@ import sqlite3
 # SQLite DB Name
 DB_Name =  "bbdd.db"
 
-#===============================================================
 
 class DatabaseManager():
     
@@ -25,16 +24,13 @@ class DatabaseManager():
 		self.conn.close()
     
 
-
-#===============================================================
-
 def Data_Handler(topic,value,date,time):
 	#Push into DB Table
 	dbObj = DatabaseManager()
 	dbObj.add_del_update_db_record("insert into Data (TopicName, Value, Date, time) values (?,?,?,?)",[topic, value, date, time])
 	del dbObj
 	print ("Inserted Data of topic "+ topic +" into Database.")
-	print ("")
+	print ("---------------------------------------------------")
 
 def selectAll(sql_query, args=()):
     dbObj = DatabaseManager()

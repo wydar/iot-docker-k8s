@@ -3,13 +3,14 @@ import json
 from flask import Flask, render_template
 from flask_mqtt import Mqtt
 from flask_socketio import SocketIO
+from bbddhandler import selectAll
 
 eventlet.monkey_patch()
 
 app = Flask(__name__)
 app.config['SECRET'] = 'my secret key'
 app.config['TEMPLATES_AUTO_RELOAD'] = True
-app.config['MQTT_BROKER_URL'] = '192.168.1.50'
+app.config['MQTT_BROKER_URL'] = '192.168.1.55'
 app.config['MQTT_BROKER_PORT'] = 1883
 app.config['MQTT_USERNAME'] = 'mqttusr'
 app.config['MQTT_PASSWORD'] = 'mqttrpi'
@@ -25,6 +26,12 @@ socketio = SocketIO(app)
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/records')
+def records():
+    select = selectAll('SELECT * FROM Data')   
+    return render_template('records.html',values=select)
+
 
 
 @socketio.on('publish')

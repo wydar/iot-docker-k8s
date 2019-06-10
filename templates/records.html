@@ -1,0 +1,23 @@
+{% extends "base_layout.html"%}
+
+{% block body%}
+
+<table id="tab">
+    <tr>
+        <td>Fecha</td>
+        <td>Hora</td>
+        <td>valor</td>
+        
+    </tr>
+    {% for value in values %}
+
+    <tr>
+        <td>{{value[3]}}</td>
+        <td>{{value[4]}}</td>
+        <td>{{value[2]}}</td>
+    </tr>
+
+    {% endfor %}
+</table>
+
+{% endblock %}
