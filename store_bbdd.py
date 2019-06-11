@@ -43,7 +43,7 @@ def save_data(data,pos):
         print stack_values
         stack_values[pos] = stack_values[pos] + data
         stack_number[pos] += 1
-      #  store_in_bbdd(pos)  #THIS LINE IS ONLY FOR TESTING
+       # store_in_bbdd(pos)  #THIS LINE IS ONLY FOR TESTING
     if hours[pos]<datetime.datetime.today().hour:
         store_in_bbdd(pos)
     
