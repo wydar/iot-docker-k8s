@@ -1,23 +1,77 @@
 {% extends "base_layout.html"%}
 
 {% block body%}
+<div class = "container">
+    <div class="row" id="desktop">
+        <div class="col-md-4">
+            <div class="scrollbox">
+                <h4>Temperatura</h4>
+                <table id="temp">
+                    <tr>
+                        <td>Fecha</td>
+                        <td>Hora</td>
+                        <td>valor</td>
+                    </tr>
+                    {% for value in values %}
+                    {% if value[1] == 'temperature' %}
+                    <tr>                           
+                        <td>{{value[3]}}</td>
+                        <td>{{value[4]}}</td>
+                        <td>{{value[2]}}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}            
+                </table>
+            </div>                
+        </div>
+        <div class="col-md-4">
+            <div class="scrollbox">
+                <h4>Humedad</h4>
+                <table id="Hum">
+                    <tr>
+                        <td>Fecha</td>
+                        <td>Hora</td>
+                        <td>valor</td>                       
+                    </tr>
+                    {% for value in values %}
+                    {% if value[1] == 'humidity' %}
+                    <tr>                           
+                        <td>{{value[3]}}</td>
+                        <td>{{value[4]}}</td>
+                        <td>{{value[2]}}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}            
+                </table>
+            </div>                
+        </div>
+        <div class="col-md-">
+            <div class="scrollbox">
+                <h4>Luminosidad</h4>
+                <table id="volt">
+                    <tr>
+                        <td>Fecha</td>
+                        <td>Hora</td>
+                        <td>valor</td>                        
+                    </tr>
+                    {% for value in values %}
+                    {% if value[1] == 'voltage' %}
+                    <tr>                           
+                        <td>{{value[3]}}</td>
+                        <td>{{value[4]}}</td>
+                        <td>{{value[2]}}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}            
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
-<table id="tab">
-    <tr>
-        <td>Fecha</td>
-        <td>Hora</td>
-        <td>valor</td>
-        
-    </tr>
-    {% for value in values %}
-
-    <tr>
-        <td>{{value[3]}}</td>
-        <td>{{value[4]}}</td>
-        <td>{{value[2]}}</td>
-    </tr>
-
-    {% endfor %}
-</table>
+<script>
+    var d = '{{values}}';
+    console.log(d);
+</script>
 
 {% endblock %}
