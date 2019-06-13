@@ -63,41 +63,62 @@ void setup() {
 }
 
 void callback(char* topic, byte* payload, unsigned int length) {
-
+  bool error = false;
   if(length==1){
     int x = (int)payload[0];
-    Serial.print("Payload: ");
-    Serial.println(x);
-    changeLedAndFreq(x);
-  }else{
-     Serial.print("Message arrived in topic: ");
-    Serial.println(topic);
+    changeFreq(x);
+  }else if(length == 2){
+    char arr [2];
+    arr[0] = payload[0];
+    arr[1] = payload[1];
+    String str = arr;
+    if(str == "on"){
+      digitalWrite(ledPin, HIGH);
+      Serial.println("Turn on LED");
+    }else{
+        error = true;
+    }
+  }else if(length == 3){
+    char arr [3];
+    arr[0] = payload[0];
+    arr[1] = payload[1];
+    arr[2] = payload[2];
+    String str = arr;
+    if(str == "off"){
+      digitalWrite(ledPin, LOW);
+      Serial.println("Turn off LED");
+    }else{
+      error = true;  
+    }
+   
+  }
   
+  if(error || length > 3){
+     Serial.print("ERROR: Message do not recognize ");
     Serial.print("Message:");
     for (int i = 0; i < length; i++) {
       Serial.print((char)payload[i]);
       
     }
-
     Serial.println();
     Serial.println("-----------------------");
   }
 
 }
 
-void changeLedAndFreq(int estate){
+void changeFreq(int estate){
   if(estate==48){ //48 en bytes equivale a recibir un 0
     ledState=LOW;
     del=7000;
     digitalWrite(ledPin, ledState);
-    Serial.println("Apagando led, bajando la frecuencia de muestreo");
-  }else if(estate==49){ //48¡9 en bytes equivale a recibir un 1
+    Serial.println("Change Fregquncy Low");
+  }else if(estate==49){ //49 en bytes equivale a recibir un 1
     ledState=HIGH;
     del=2000;
     digitalWrite(ledPin, ledState);
-    Serial.println("Encendiendo led, subiendo la frecuencia de muestreo");
+    Serial.println("Change Fregquncy Hight");
   }else{
-    Serial.print("***ERROR: estado no reconocido: ");
+    Serial.print("***ERROR state do not recognize ");
     Serial.println(estate);
   }
   Serial.println("-----------------------");
@@ -106,7 +127,7 @@ void changeLedAndFreq(int estate){
 float readVoltage(){
     int val = analogRead(A0);
     if(isnan(val)){
-      Serial.println("***ERROR: lectura del voltaje incorrecta");
+      Serial.println("***ERROR in voltage");
       return -999;
     }else{
       float voltage = val * (5.0 / 1023.0);
@@ -119,11 +140,11 @@ float readVoltage(){
 float readDHTHumidity() {
   float h = dht.readHumidity();
   if (isnan(h)) {
-    Serial.println("***ERROR: lectura de la humedad incorrecta");
+    Serial.println("***ERROR in humidity sensor");
     return -999;
   }
   else {
-    Serial.print("Humedad: ");
+    Serial.print("Humidity: ");
     Serial.println(h);
     return h;
   }
@@ -133,11 +154,11 @@ float readDHTTemperature() {
 
   float t = dht.readTemperature();
   if (isnan(t)) {    
-    Serial.println("***ERROR: lectura de la temperatura incorrecta");
+    Serial.println("***ERROR in temperature sensor");
     return -9999;
   }
   else {
-    Serial.print("Temperatura: ");
+    Serial.print("Temperature: ");
     Serial.println(t);
     return t;
   }
