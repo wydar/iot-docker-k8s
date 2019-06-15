@@ -45,6 +45,11 @@ def handle_subscribe(json_str):
     data = json.loads(json_str)
     mqtt.subscribe(data['topic'])
 
+@socketio.on('changeLed')
+def handle_changeLed(data):
+    print data
+    mqtt.publish("esp8266", data)
+
 
 @mqtt.on_message()
 def handle_mqtt_message(client, userdata, message):
@@ -68,4 +73,5 @@ if __name__ == '__main__':
     mqtt.subscribe('voltage')
     mqtt.subscribe('temperature')
     mqtt.subscribe('humidity')
+    mqtt.subscribe('led')
     socketio.run(app, host='0.0.0.0', port=5000, use_reloader=True, debug=True)

@@ -14,7 +14,7 @@ DHT dht(DHTPIN, DHTTYPE);
 
 const char* ssid = "MOVISTAR_7728";                               // wifi ssid
 const char* password =  "supercalifragilisticoespialidoso27";     // wifi password
-const char* mqttServer = "192.168.1.50";                          // IP adress Raspberry Pi
+const char* mqttServer = "192.168.1.55";                          // IP adress Raspberry Pi
 const int mqttPort = 1883;
 const char* mqttUser = "mqttusr";                                 // if you don't have MQTT Username, no need input
 const char* mqttPassword = "mqttrpi";                             // if you don't have MQTT Password, no need input
@@ -73,7 +73,8 @@ void callback(char* topic, byte* payload, unsigned int length) {
     arr[1] = payload[1];
     String str = arr;
     if(str == "on"){
-      digitalWrite(ledPin, HIGH);
+      ledState = HIGH;
+      digitalWrite(ledPin, ledState);
       Serial.println("Turn on LED");
     }else{
         error = true;
@@ -85,7 +86,8 @@ void callback(char* topic, byte* payload, unsigned int length) {
     arr[2] = payload[2];
     String str = arr;
     if(str == "off"){
-      digitalWrite(ledPin, LOW);
+      ledState = LOW;
+      digitalWrite(ledPin, ledState);
       Serial.println("Turn off LED");
     }else{
       error = true;  
@@ -171,7 +173,8 @@ void loop() {
     char volt [10];
     char temp [10];
     char humd [10];
-
+    char led [1];
+    led[0] = ledState;
     sprintf(volt,"%g",readVoltage());
     sprintf(temp,"%g",readDHTTemperature());
     sprintf(humd,"%g",readDHTHumidity());
@@ -181,6 +184,7 @@ void loop() {
     client.publish("voltage-micro", volt);
     client.publish("temperature-micro", temp);
     client.publish("humidity-micro",humd);
+    client.publish("led-micro",led);
 
     delay(del);
     client.loop();
