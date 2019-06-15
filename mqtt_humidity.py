@@ -4,7 +4,7 @@ mqtt_username = "mqttusr"
 mqtt_password = "mqttrpi"
 mqtt_topic_sub = "humidity-micro"
 mqtt_topic_pub = "humidity"
-mqtt_broker_ip = "192.168.1.50"
+mqtt_broker_ip = "192.168.1.55"
 
 
 def on_connect(client, userdata, flag, rc):

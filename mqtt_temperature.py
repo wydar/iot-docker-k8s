@@ -1,6 +1,5 @@
 import paho.mqtt.client as mqtt
-from bbddhandler import Data_Handler as bd
-import datetime
+
 
 mqtt_username = "mqttusr"
 mqtt_password = "mqttrpi"
@@ -12,8 +11,6 @@ mqtt_broker_ip = "192.168.1.50"
 def on_connect(client, userdata, flag, rc):
     print "Connected!", str(rc)
     client.subscribe(mqtt_topic_sub)
-    global hour
-    hour = datetime.datetime.today().hour
 
 
 def on_message(client, userdata, msg): 
