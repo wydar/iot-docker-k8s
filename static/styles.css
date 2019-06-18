@@ -5,8 +5,14 @@
     border:1px solid #527cce;
     border-radius: 25px;
     background-color: #282c34 !important;
-    font:16px/26px Georgia, Garamond, Serif;
     overflow:auto;
+}
+
+.box{
+    border:1px solid #527cce;
+    border-radius: 25px;
+    background-color: #282c34 !important;
+    text-align: center;
 }
 
 ul{
@@ -16,6 +22,8 @@ ul{
 body{
     background-color: #21252b !important;
     color: #d7dae0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
 }
 
 h1, h4{
@@ -27,7 +35,6 @@ h1, h4{
 
 table{
     width: 100%;
-    border: solid 2px;
 }
 
 td{
@@ -39,6 +46,8 @@ td{
 button{
     background-color: #527cce;
     border: none;
+    margin: 0 auto;
+    display: block;
 }
 
 a,a:hover{
@@ -49,5 +58,15 @@ a,a:hover{
 }
 
 #led{
-    text-align: left;
+    margin-top:5px;
+}
+
+#pir{
+    margin-top: 20px;
+}
+
+#to-records,#to-index{
+    margin-top: 20px;
+    padding: 15px 32px;
+    font-size: 16px;
 }

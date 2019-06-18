@@ -2,7 +2,6 @@
 {% block body %}
     <div class="container">
         <h1>MEDICIONES</h1>
-        <!--SHOW ONLY IN DESKTOP-->
         <div class="row" id="desktop">
             <div class="col-md-3">
                 <div class="scrollbox">
@@ -29,77 +28,20 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <table>
-                    <tr>
-                        <td>Estado del led:</td>
-                        <td id="led">Apagado</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><button id="changeLed" onclick="changeState()">Encender</button></td>
-                    </tr>
-                </table>
-                
-                <button><a href="{{url_for('records')}}">Historico</a></button>
-                
+                <div class="box">
+                        <p id="led">Estado del led: Apagado</p>
+                        <button id="changeLed" onclick="changeState()">Encender</button>
+                        <p id="pir">Movimiento: No detectado</p>
+                </div>
+                <button id="to-records"><a href="{{url_for('records')}}">Histórico</a></button>
             </div>
         </div>
       </div>
 
-      <!--SHOW ONLY IN MOBILES-->
-      <div class="panel-group" id="accordion">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h4 class="panel-title">
-                  <a id="temp-m" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                  TEMPERATURA</a>
-                </h4>
-              </div>
-              <div id="collapse1" class="panel-collapse collapse in">
-                <div class="panel-body">
-                    <ul class="temp">
-                        <li>Datos</li>
-                    </ul>
-                </div>
-              </div>
-            </div>
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h4 class="panel-title">
-                  <a id="hum-m" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                  HUMEDAD</a>
-                </h4>
-              </div>
-              <div id="collapse2" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <ul class="hum">
-                        <li>Datos</li>
-                    </ul>
-               </div>
-              </div>
-            </div>
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h4 class="panel-title">
-                  <a id="volt-m" data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-                  LUMINOSIDAD</a>
-                </h4>
-              </div>
-              <div id="collapse3" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <ul class="volt">
-                        <li>Datos</li>
-                    </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
     <script>
         if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-            $('#desktop').css('display', 'none');
-        }else{
-            $('#accordion').css('display', 'none'); 
+            $('.scrollbox').css('margin-top', '10px');
+            $('.box').css('margin-top', '10px');
         }
     </script>
 
@@ -119,11 +61,17 @@
                 $('#volt-m').text('Luminosidad: '+data.payload);
             }else if(data.topic=="led"){
                 if(data.payload == "1"){
-                    $("#led").text("Encendido");
+                    $("#led").text("Estado del led: Encendido");
                     $("#changeLed").text("Apagar");
                 }else if(data.payload == "0"){
-                    $("#led").text("Apagado");
+                    $("#led").text("Estado del led: Apagado");
                     $("#changeLed").text("Encender");
+                }
+            }else if(data.topic == "pir"){
+                if(data.payload == "on"){
+                    $("#pir").text("Movimiento: Detectado");
+                }else if(data.payload == "off"){
+                    $("#pir").text("Movimiento: No detectado");
                 }
             }
             

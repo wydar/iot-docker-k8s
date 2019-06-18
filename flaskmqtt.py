@@ -1,6 +1,6 @@
 import eventlet
 import json
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 from flask_mqtt import Mqtt
 from flask_socketio import SocketIO
 from bbddhandler import selectAll
@@ -28,8 +28,9 @@ def index():
     return render_template('index.html')
 
 @app.route('/records')
-def records():
-    select = selectAll('SELECT * FROM Data')   
+def records():   
+    select = selectAll("SELECT * FROM Data WHERE TopicName='temperature'")
+    print select   
     return render_template('records.html',values=select)
 
 
@@ -74,4 +75,5 @@ if __name__ == '__main__':
     mqtt.subscribe('temperature')
     mqtt.subscribe('humidity')
     mqtt.subscribe('led')
+    mqtt.subscribe('pir')
     socketio.run(app, host='0.0.0.0', port=5000, use_reloader=True, debug=True)
