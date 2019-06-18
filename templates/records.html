@@ -2,10 +2,11 @@
 
 {% block body%}
 <div class = "container">
+    <h1>HISTÓRITCO</h1>
     <div class="row" id="desktop">
         <div class="col-md-4">
             <div class="scrollbox">
-                <h4>Temperatura</h4>
+                <h4>TEMPERATURA</h4>
                 <table id="temp">
                     <tr>
                         <td>Fecha</td>
@@ -26,7 +27,7 @@
         </div>
         <div class="col-md-4">
             <div class="scrollbox">
-                <h4>Humedad</h4>
+                <h4>HUMEDAD</h4>
                 <table id="Hum">
                     <tr>
                         <td>Fecha</td>
@@ -47,7 +48,7 @@
         </div>
         <div class="col-md-">
             <div class="scrollbox">
-                <h4>Luminosidad</h4>
+                <h4>LUMINOSIDAD</h4>
                 <table id="volt">
                     <tr>
                         <td>Fecha</td>
@@ -66,6 +67,9 @@
                 </table>
             </div>
         </div>
+    </div>
+    <div class = "row">
+        <button><a href="{{url_for('index')}}">atrás</a></button>
     </div>
 </div>
 

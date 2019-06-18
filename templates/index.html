@@ -1,12 +1,12 @@
 {% extends "base_layout.html" %}
 {% block body %}
     <div class="container">
-        <h1>Trying mqtt with flask</h1>
+        <h1>MEDICIONES</h1>
         <!--SHOW ONLY IN DESKTOP-->
         <div class="row" id="desktop">
             <div class="col-md-3">
                 <div class="scrollbox">
-                    <h4>Temperatura</h4>
+                    <h4>TEMPERATURA</h4>
                     <ul class="temp">
                         <li>Datos</li>
                     </ul>
@@ -14,7 +14,7 @@
             </div>
             <div class="col-md-3">
                 <div class="scrollbox">
-                    <h4>Humedad</h4>
+                    <h4>HUMEDAD</h4>
                     <ul class="hum">
                         <li>Datos</li>
                     </ul>
@@ -22,16 +22,25 @@
             </div>
             <div class="col-md-3">
                 <div class="scrollbox">
-                    <h4>Luminosidad</h4>
+                    <h4>LUMINOSIDAD</h4>
                     <ul class="volt">
                         <li>Datos</li>
                      </ul>
                 </div>
             </div>
             <div class="col-md-3">
-                <p>Estado del led:</p>
-                <p id="led"> Apagado</p>
-                <button id="changeLed" onclick="changeState()">Encender</button>
+                <table>
+                    <tr>
+                        <td>Estado del led:</td>
+                        <td id="led">Apagado</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><button id="changeLed" onclick="changeState()">Encender</button></td>
+                    </tr>
+                </table>
+                
+                <button><a href="{{url_for('records')}}">Historico</a></button>
+                
             </div>
         </div>
       </div>
@@ -42,7 +51,7 @@
               <div class="panel-heading">
                 <h4 class="panel-title">
                   <a id="temp-m" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                  Temperatura</a>
+                  TEMPERATURA</a>
                 </h4>
               </div>
               <div id="collapse1" class="panel-collapse collapse in">
@@ -57,7 +66,7 @@
               <div class="panel-heading">
                 <h4 class="panel-title">
                   <a id="hum-m" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                  Humedad</a>
+                  HUMEDAD</a>
                 </h4>
               </div>
               <div id="collapse2" class="panel-collapse collapse">
@@ -72,7 +81,7 @@
               <div class="panel-heading">
                 <h4 class="panel-title">
                   <a id="volt-m" data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-                  Luminosidad</a>
+                  LUMINOSIDAD</a>
                 </h4>
               </div>
               <div id="collapse3" class="panel-collapse collapse">
