@@ -49,7 +49,7 @@ def handle_subscribe(json_str):
 @socketio.on('changeLed')
 def handle_changeLed(data):
     print data
-    mqtt.publish("esp8266", data)
+    mqtt.publish("led-micro", data)
 
 
 @mqtt.on_message()

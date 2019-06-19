@@ -68,9 +68,9 @@
                     $("#changeLed").text("Encender");
                 }
             }else if(data.topic == "pir"){
-                if(data.payload == "on"){
+                if(data.payload == "2"){
                     $("#pir").text("Movimiento: Detectado");
-                }else if(data.payload == "off"){
+                }else if(data.payload == "3"){
                     $("#pir").text("Movimiento: No detectado");
                 }
             }
@@ -85,10 +85,10 @@
             var st = $("#changeLed").text();
             console.log(st);
             if(st == "Encender"){
-                sckt.emit('changeLed',"on");
+                sckt.emit('changeLed',"11");
                 $("#changeLed").text("Encendiendo...");
             }else if(st == "Apagar"){
-                sckt.emit('changeLed',"off");
+                sckt.emit('changeLed',"10");
                 $("#changeLed").text("Apagando...");
             }
         }
