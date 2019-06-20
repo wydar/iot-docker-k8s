@@ -44,7 +44,7 @@ void setup() {
   while (!client.connected()) {
     Serial.println("Connecting to MQTT...");
 
-    if (client.connect("ESP8266Client", mqttUser, mqttPassword )) {
+    if (client.connect("ESP8266Client2", mqttUser, mqttPassword )) {
 
       Serial.println("connected");
       client.subscribe("esp8266");
@@ -63,63 +63,19 @@ void setup() {
 }
 
 void callback(char* topic, byte* payload, unsigned int length) {
-  bool error = false;
+
   for (int i = 0; i < length; i++) {
     Serial.print((char)payload[i]);
   }
-  Serial.println(length);
-  if((char)payload[0]=='5'){
-    Serial.println("yuju");
-    }
   
   if(length==1){
     int x = (int)payload[0];
-    changeFreq(x);
-  }else if(length == 2){
-    char arr [2];
-    arr[0] = payload[0];
-    arr[1] = payload[1];
-    String str = arr;
-    Serial.println(arr);
-    if(str == "on"){
-      ledState = HIGH;
-      digitalWrite(ledPin, ledState);
-      Serial.println("Turn on LED");
-    }else{
-        error = true;
-        Serial.println("error1");
-    }
-  }else if(length == 3){
-    char arr [3];
-    arr[0] = payload[0];
-    arr[1] = payload[1];
-    arr[2] = payload[2];
-    String str = arr;
-    if(str == "off"){
-      ledState = LOW;
-      digitalWrite(ledPin, ledState);
-      Serial.println("Turn off LED");
-    }else{
-      error = true;  
-      Serial.println("error2");
-    }
-   
-  }
-  
-  if(error || length > 3){
-     Serial.print("ERROR: Message do not recognize ");
-    Serial.print("Message:");
-    for (int i = 0; i < length; i++) {
-      Serial.print((char)payload[i]);
-      
-    }
-    Serial.println();
-    Serial.println("-----------------------");
+    changeFreqOrLed(x);
   }
 
 }
 
-void changeFreq(int state){
+void changeFreqOrLed(int state){
   if(state==48){ //48 en bytes equivale a recibir un 0
     ledState=LOW;
     digitalWrite(ledPin, ledState);

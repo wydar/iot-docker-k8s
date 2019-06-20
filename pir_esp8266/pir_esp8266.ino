@@ -57,7 +57,7 @@ void loop() {
     digitalWrite(LED_BUILTIN, HIGH);
     char msg [3] ={'3'};
     client.publish("pir-micro", msg);
-    delay(1000);
+    delay(10000);
   }
   Serial.println("------------------");
 }
